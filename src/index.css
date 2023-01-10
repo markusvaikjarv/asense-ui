@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  background: #222222;
+}
+
+.leaflet-container {
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.leaflet-custom-tooltip {
+  background-color: red;
+  color: blue;
+}
