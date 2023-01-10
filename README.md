@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# a***Sense AG UI
+This repository provides a React/TypeScript based front-end for the gas station management application.
+# Demo
+**This UI is running on http://5.75.248.246**
+# Flows
+**Seeing gas station locations on map:**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ - When opening the application, a GET request will be sent to the back-end and all gas stations are rendered on the OSM based map as blue markers
+ - When hovering over the marker, you should see gas station name and pricing for the fuel types that are currently marked as active
 
-## Available Scripts
+**Adding a gas station to the map:**
+ 1. Click the "Add station" button on the bottom-left
+ 2. Click on a location on the map
+ 3. A reverse geocode request will be sent to a third-party API and after this is resolved, you will see a modal on your screen
+ 4. City, street, house number and coordinates are prefilled based the clicked location and the result of the reverse geocode search. You can change those parameters, as reverse geocoding is not always accurate
+ 5. You have to fill out station name and can fill out pricing details (assumed to be in CHF) and availability (checkboxes behind the price inputs) of different fuel pump types at this location
+ 6. Click "Save". A POST request with the new station data will be sent to the back-end. All station locations are then requested again and every station marker will be re-rendered
 
-In the project directory, you can run:
+**Modifying an existing location:**
 
-### `npm start`
+ - Click on the marker of the station you wish to modify
+ - A station modification model will open where you can change every parameter of the station. Note that if you change coordinates, the new city, street and house number will not be automatically determined but will have to be updated manually
+ - Click "Save". A PUT request with the modified station data will be sent to the back-end. All station locations are then requested again and every station marker will be re-rendered
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Deleting an existing location:**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+ - Click on the marker of the station you wish to delete
+ - A station modification model will open
+ - Click "Delete". A DELETE request with the modified station data will be sent to the back-end. All station locations are then requested again and every station marker will be re-rendered
 
-### `npm test`
+# Local setup instructions
+Requirements:
+ - Node.js >=**16.0.0**
+ - asense-api running on *http://localhost:3080*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Set up the UI
+This UI has not been dockerized. To set it up, clone this repository and install the dependencies:
 
-### `npm run build`
+    $ cd asense-ui
+    $ npm install
+To start the application, run:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    $ npm start
+*UI will be accessible from port :3080*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Todo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ - Unit test coverage
+ - E2E test coverage
+ - Docker and Docker-Compose stack setup
+ - UX improvements - loader when reverse geocoding coordinates, automatically fetching address data when modifying the coordinates of the station, better instructions the the user etc.
+ - Error handling
+ - Address accessibility & screen-reader compatibility issues
